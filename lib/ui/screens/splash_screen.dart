@@ -12,11 +12,9 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
-  void initState (){
+  void initState() {
     super.initState();
     _moveToNextScreen();
   }
@@ -34,12 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenBackground (child: Center(
-          child: SvgPicture.asset(
-            AssetsPath.logoSvg,
-            width: 150,
-          )
-      ),
+      body: ScreenBackground(
+        child: Center(
+            child: SvgPicture.asset(
+          AssetsPath.logoSvg,
+          width: 150,
+        )),
       ),
     );
   }

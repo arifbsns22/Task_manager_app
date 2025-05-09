@@ -40,8 +40,8 @@ class _ForgotPasswordVerifyEmailScreenState
               Text(
                 "A 6 digit verification pin will send to your email adress",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.blueGrey,
-                ),
+                      color: Colors.blueGrey,
+                    ),
               ),
               const SizedBox(height: 24),
               TextFormField(
@@ -79,9 +79,6 @@ class _ForgotPasswordVerifyEmailScreenState
                     ],
                   ),
                 ),
-                /*const SizedBox(height: 50),
-                                        TextButton(onPressed: () {}, child: const Text("Need Support ?")),
-                                        */
               )
             ],
           ),
@@ -99,7 +96,7 @@ class _ForgotPasswordVerifyEmailScreenState
     );
   }
 
-  void _onTapSubmitButton () {
+  void _onTapSubmitButton() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -111,12 +108,10 @@ class _ForgotPasswordVerifyEmailScreenState
   void _onTapSigninButton() {
     Navigator.pop(context);
   }
+
   @override
   void dispose() {
     _emailTEController.dispose();
     super.dispose();
   }
-
-
-
 }
