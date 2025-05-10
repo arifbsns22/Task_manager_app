@@ -22,7 +22,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               primary: false,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return const TaskCard();
+                return const TaskCard(taskStatus: TaskStatus.sNew);
               },
               separatorBuilder: (context, index) =>const SizedBox(height: 8),
             )

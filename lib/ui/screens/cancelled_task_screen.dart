@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../widgets/summary_card.dart';
 import '../widgets/task_card.dart';
 
-class ProgressTaskScreen extends StatefulWidget {
-  const ProgressTaskScreen({super.key});
+class CancelledTaskScreen extends StatefulWidget {
+  const CancelledTaskScreen({super.key});
 
   @override
-  State<ProgressTaskScreen> createState() => _ProgressTaskScreenState();
+  State<CancelledTaskScreen> createState() => _CancelledTaskScreenState();
 }
 
-class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
+class _CancelledTaskScreenState extends State<CancelledTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
               primary: false,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return const TaskCard(taskStatus: TaskStatus.progress);
+                return const TaskCard(taskStatus: TaskStatus.cancelled);
               },
               separatorBuilder: (context, index) =>const SizedBox(height: 8),
             )
