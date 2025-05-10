@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../widgets/summary_card.dart';
 import '../widgets/task_card.dart';
 
-class NewTaskScreen extends StatefulWidget {
-  const NewTaskScreen({super.key});
+class ProgressTaskScreen extends StatefulWidget {
+  const ProgressTaskScreen({super.key});
 
   @override
-  State<NewTaskScreen> createState() => _NewTaskScreenState();
+  State<ProgressTaskScreen> createState() => _ProgressTaskScreenState();
 }
 
-class _NewTaskScreenState extends State<NewTaskScreen> {
+class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +28,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add_circle_outline_outlined),
       ),
     );
   }
