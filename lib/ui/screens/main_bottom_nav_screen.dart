@@ -29,18 +29,25 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
       appBar: const TMAppBar(),
       body: _screen[_selectedIndex],
       bottomNavigationBar: NavigationBar(
+
         selectedIndex: _selectedIndex,
         onDestinationSelected: (index) {
           _selectedIndex = index;
           setState(() {});
         },
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.new_label), label: 'New'),
           NavigationDestination(
-              icon: Icon(Icons.update_outlined), label: 'Progress'),
-          NavigationDestination(icon: Icon(Icons.done_all), label: 'Complete'),
+              icon: Icon(Icons.table_chart, color: Color(0xFF0E104B)),
+              label: 'New'),
           NavigationDestination(
-              icon: Icon(Icons.cancel_outlined), label: 'Cancelled')
+              icon: Icon(Icons.auto_graph, color: Color(0xFF0E104B)),
+              label: 'Progress'),
+          NavigationDestination(
+              icon: Icon(Icons.done_all, color: Color(0xFF0E104B)),
+              label: 'Complete'),
+          NavigationDestination(
+              icon: Icon(Icons.highlight_off, color: Color(0xFF0E104B)),
+              label: 'Cancelled')
         ],
       ),
     );

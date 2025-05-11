@@ -24,7 +24,7 @@ class SummaryCard extends StatelessWidget {
               style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 24),
+                  fontSize: 25),
             ),
             Text(
               (title),

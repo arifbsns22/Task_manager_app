@@ -3,7 +3,8 @@ import 'package:task_management/ui/screens/update_profile_screen.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({
-    super.key, this.fromProfileScreen,
+    super.key,
+    this.fromProfileScreen,
   });
 
   final bool? fromProfileScreen;
@@ -15,12 +16,12 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.deepOrange,
       title: GestureDetector(
-        onTap: (){
-          if (fromProfileScreen ?? false){
+        onTap: () {
+          if (fromProfileScreen ?? false) {
             return;
-
           }
-          _onTapProfileSection(context);},
+          _onTapProfileSection(context);
+        },
         child: Row(
           children: [
             const CircleAvatar(
@@ -53,9 +54,15 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
- void _onTapProfileSection (BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>const UpdateProfileScreen(),),);
- }
+
+  void _onTapProfileSection(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UpdateProfileScreen(),
+      ),
+    );
+  }
 
   @override
   // TODO: implement preferredSize

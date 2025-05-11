@@ -48,8 +48,13 @@ class TaskCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton.filledTonal(
-                    onPressed: () {}, icon: Icon(Icons.delete)),
-                IconButton.filledTonal(onPressed: () {}, icon: Icon(Icons.edit))
+                    onPressed: () {},
+                    icon: Icon(Icons.delete_sweep),
+                    color: Colors.red),
+                IconButton.filledTonal(
+                    onPressed: () {},
+                    icon: Icon(Icons.tune),
+                    color: Colors.black)
               ],
             )
           ],
@@ -60,15 +65,15 @@ class TaskCard extends StatelessWidget {
 
   Color _getStatusChipColor() {
     late Color color;
-    switch (taskStatus){
+    switch (taskStatus) {
       case TaskStatus.sNew:
-        color =Colors.deepOrange;
+        color = Colors.deepOrange;
       case TaskStatus.progress:
-        color =Colors.purple;
+        color = Colors.purple;
       case TaskStatus.completed:
-        color =Colors.green;
+        color = Colors.green;
       case TaskStatus.cancelled:
-        color =Colors.black;
+        color = Colors.black;
     }
     return color;
   }
