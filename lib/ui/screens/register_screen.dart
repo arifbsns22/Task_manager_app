@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
@@ -15,16 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _lastNameTEController = TextEditingController();
   final TextEditingController _mobileTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
-  final GlobalKey <FormState> _formKey = GlobalKey <FormState>();
-
-//---------------------------Form Verify-----------------------------------//
-
-//---------------------------Form Verify-----------------------------------//
-
-
-
-
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +24,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: ScreenBackground(
             child: SingleChildScrollView(
       child: Padding(
-        key: _formKey,
         padding: const EdgeInsets.all(32.0),
         child: Form(
           key: _formKey,
@@ -45,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 24),
-          
+
               //----------------------Form Start--------------------------//
               TextFormField(
                 textInputAction: TextInputAction.next,
@@ -54,7 +45,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: const InputDecoration(
                   hintText: "Email",
                 ),
-
+                validator: (String? value) {
+                  String email = value?.trim() ?? '';
+                  if (EmailValidator.validate(email) == false) {
+                    return 'Enter a valid email';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -63,6 +60,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: const InputDecoration(
                   hintText: "First Name",
                 ),
+                validator: (String? value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Enter first name';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -71,6 +74,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: const InputDecoration(
                   hintText: "Last Name",
                 ),
+                validator: (String? value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Enter your last name';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -80,24 +89,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: const InputDecoration(
                   hintText: "Mobile Number",
                 ),
+                validator: (String? value) {
+                  String phone = value?.trim() ?? '';
+                  RegExp regExp = RegExp(r"^(?:\\+88|88)?(01[3-9]\\d{8})$");
+                  if (regExp.hasMatch(phone) == false) {
+                    return 'Enter a valid number';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
                 textInputAction: TextInputAction.next,
                 controller: _passwordTEController,
                 decoration: const InputDecoration(
-                  hintText: "Possword",
+                  hintText: "Password",
                 ),
+                validator: (String? value) {
+                  if ((value?.isEmpty ?? true) || (value!.length < 6)) {
+                    return 'Enter your password more than 6 letters';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                   onPressed: _onTapSubmitButton,
                   child: Icon(Icons.arrow_circle_right_outlined)),
 
-
-
               //----------------------Form Start--------------------------//
-          
+
               const SizedBox(height: 35),
               Center(
                 child: RichText(
@@ -132,12 +153,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     )));
   }
 
+  void _onTapSubmitButton() {
+    if (_formKey.currentState!.validate()) {
+      _registerUser();
+    }
+  }
+
+  Future<void> _registerUser() async {}
   void _onTapSignInButton() {
     Navigator.pop(context);
   }
-  void _onTapSubmitButton () {
 
-  }
   @override
   void dispose() {
     _emailTEController.dispose();
