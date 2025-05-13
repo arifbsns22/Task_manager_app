@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_management/data/service/network_client.dart';
+import 'package:task_management/data/utils/urls.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _mobileTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _registrationInProgress = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.all(32.0),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -91,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 validator: (String? value) {
                   String phone = value?.trim() ?? '';
-                  RegExp regExp = RegExp(r"^(?:\\+88|88)?(01[3-9]\\d{8})$");
+                  RegExp regExp = RegExp(r"^(?:\+?88|0088)?01[13-9]\d{8}$");
                   if (regExp.hasMatch(phone) == false) {
                     return 'Enter a valid number';
                   }
@@ -106,16 +111,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Password",
                 ),
                 validator: (String? value) {
-                  if ((value?.isEmpty ?? true) || (value!.length < 6)) {
+                  if ((value?.trim().isEmpty ?? true) || (value!.length < 6)) {
                     return 'Enter your password more than 6 letters';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
-                  onPressed: _onTapSubmitButton,
-                  child: Icon(Icons.arrow_circle_right_outlined)),
+              Visibility(
+                visible: _registrationInProgress == false,
+                replacement: Center(
+                  child: CircularProgressIndicator(),
+                ),
+                child: ElevatedButton(
+                    onPressed: _onTapSubmitButton,
+                    child: Icon(Icons.arrow_circle_right_outlined)),
+              ),
 
               //----------------------Form Start--------------------------//
 
@@ -159,7 +170,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  Future<void> _registerUser() async {}
+  Future<void> _registerUser() async {
+    _registrationInProgress = true;
+    setState(() {
+
+    });
+    Map<String, dynamic> requestBody = {
+      "email": _emailTEController.text.trim(),
+      "firstName": _firstNamelTEController.text.trim(),
+      "lastName": _lastNameTEController.text.trim(),
+      "mobile": _mobileTEController.text.trim(),
+      "password": _passwordTEController.text.trim()
+    };
+    NetworkResponse response = await NetworkClient.postRequest(
+        url: Urls.registerUrl, body: requestBody
+    );_registrationInProgress = false;
+    setState(() {
+
+    });
+    if (response.isSuccess) {
+
+    }else {
+
+    }
+  }
+
   void _onTapSignInButton() {
     Navigator.pop(context);
   }
