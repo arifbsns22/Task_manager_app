@@ -19,17 +19,15 @@ class NetworkResponse {
 
 class NetworkClient {
   static final Logger _logger = Logger();
-
 //----------------------------GET Request Start---------------------------------//
   static Future<NetworkResponse> getRequest({required String url}) async {
     try {
       Uri uri = Uri.parse(url);
-      _logger.i('URL=> $url');
+      _preRequestLog(url);
       Response response = await get(uri);
-      _logger.i(''
-          'Status Code:${response.statusCode}\n '
-          'Headers:${response.headers}\n '
-          'Response: ${response.body}');
+      _postRequestLog(url, response.statusCode,
+          headers: response.headers, responseBody: response.body);
+
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
         return NetworkResponse(
@@ -41,8 +39,7 @@ class NetworkClient {
             isSuccess: false, statusCode: response.statusCode);
       }
     } catch (e) {
-      _logger.e(e.toString());
-
+      _postRequestLog(url, -1);
       return NetworkResponse(
           isSuccess: false, statusCode: -1, errorMessage: e.toString());
     }
@@ -50,22 +47,18 @@ class NetworkClient {
 //----------------------------GET Request End---------------------------------//
 
 //----------------------------POST Request Start---------------------------------//
-
   static Future<NetworkResponse> postRequest(
       {required String url, Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
-      _logger.i('URL=> $url\n'
-          'Body" $body');
+      _preRequestLog(url, body: body);
       Response response = await post(uri,
           headers: {'Content-type': 'Application/json'},
           body: jsonEncode(
             body,
           ));
-      _logger.i(''
-          'Status Code:${response.statusCode}\n '
-          'Headers:${response.headers}\n '
-          'Response: ${response.body}');
+      _postRequestLog(url, response.statusCode,
+          headers: response.headers, responseBody: response.body);
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
         return NetworkResponse(
@@ -77,11 +70,33 @@ class NetworkClient {
             isSuccess: false, statusCode: response.statusCode);
       }
     } catch (e) {
-      _logger.e(e.toString());
-
+      _postRequestLog(url, -1, errorMassage: e.toString());
       return NetworkResponse(
           isSuccess: false, statusCode: -1, errorMessage: e.toString());
     }
-  }
 //----------------------------POST Request End---------------------------------//
+  }
+
+  static void _preRequestLog(String url, {Map<String, dynamic>? body}) {
+    _logger.i('URL=> $url\n'
+        'Body" $body');
+  }
+
+  static void _postRequestLog(String url, int statusCode,
+      {Map<String, dynamic>? headers,
+      dynamic responseBody,
+      dynamic errorMassage}) {
+    if (errorMassage != null) {
+      _logger.i(''
+          'Url:$url\n '
+          'Status Code:$statusCode\n '
+          'Error Message: $errorMassage');
+    } else {
+      _logger.i(''
+          'Url:$url\n '
+          'Status Code:$statusCode\n '
+          'Headers:$headers\n '
+          'Response: $responseBody');
+    }
+  }
 }
