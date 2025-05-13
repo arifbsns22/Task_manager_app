@@ -21,7 +21,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _registrationInProgress = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,9 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _registerUser() async {
     _registrationInProgress = true;
-    setState(() {
-
-    });
+    setState(() {});
     Map<String, dynamic> requestBody = {
       "email": _emailTEController.text.trim(),
       "firstName": _firstNamelTEController.text.trim(),
@@ -183,15 +180,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "password": _passwordTEController.text.trim()
     };
     NetworkResponse response = await NetworkClient.postRequest(
-        url: Urls.registerUrl, body: requestBody
-    );_registrationInProgress = false;
-    setState(() {
-
-    });
+        url: Urls.registerUrl, body: requestBody);
+    _registrationInProgress = false;
+    setState(() {});
     if (response.isSuccess) {
-
-    }else {
-
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User Registered Successfully!')));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.errorMessage),),);
     }
   }
 
