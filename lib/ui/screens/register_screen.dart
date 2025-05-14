@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management/data/service/network_client.dart';
 import 'package:task_management/data/utils/urls.dart';
+import 'package:task_management/ui/widgets/centered_circular_progress_bar.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
 import 'package:task_management/ui/widgets/snack_bar_message.dart';
 
@@ -112,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Pin",
                 ),
                 validator: (String? value) {
-                  if ((value?.trim().isEmpty ?? true) || (value!.length <=4)) {
+                  if ((value?.trim().isEmpty ?? true) || (value!.length <= 4)) {
                     return 'Enter your pin more than 4 letters';
                   }
                   return null;
@@ -121,9 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 16),
               Visibility(
                 visible: _registrationInProgress == false,
-                replacement: Center(
-                  child: CircularProgressIndicator(),
-                ),
+                replacement: const CenteredCircularProgressBar(),
                 child: ElevatedButton(
                     onPressed: _onTapSubmitButton,
                     child: Icon(Icons.arrow_circle_right_outlined)),
@@ -188,10 +187,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _registrationInProgress = false;
     setState(() {});
     if (response.isSuccess) {
+      _clearTextField ();
       showSnackBarMessage(context, 'User Registered Successfully!');
     } else {
       showSnackBarMessage(context, response.errorMessage, true);
     }
+  }
+
+  void _clearTextField () {
+    _emailTEController.clear();
+    _firstNamelTEController.clear();
+    _lastNameTEController.clear();
+    _mobileTEController.clear();
+    _passwordTEController.clear();
   }
 
   void _onTapSignInButton() {
