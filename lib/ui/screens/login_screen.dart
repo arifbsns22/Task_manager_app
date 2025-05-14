@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_management/data/models/login_model.dart';
 import 'package:task_management/ui/screens/forgot_password_verify_email_screen.dart';
 import 'package:task_management/ui/screens/main_bottom_nav_screen.dart';
 import 'package:task_management/ui/screens/register_screen.dart';
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextSpan(text: "Don't Have Account? "),
                           TextSpan(
-                            text: "Sign Up",
+                            text: " Sign Up",
                             style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
@@ -139,6 +140,12 @@ class _LoginScreenState extends State<LoginScreen> {
     _loginInProgress = false;
     setState(() {});
     if (response.isSuccess) {
+      LoginModel loginModel = LoginModel.fromJson(response.data!);
+      //TODO: Token save to local
+      //TODO: local database setup
+      //TODO: logged in/or nor verify
+
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
