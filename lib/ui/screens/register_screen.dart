@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:task_management/data/service/network_client.dart';
 import 'package:task_management/data/utils/urls.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
+import 'package:task_management/ui/widgets/snack_bar_message.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -180,15 +181,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "password": _passwordTEController.text.trim()
     };
     NetworkResponse response = await NetworkClient.postRequest(
-        url: Urls.registerUrl, body: requestBody);
+      url: Urls.registerUrl,
+      body: requestBody,
+    );
     _registrationInProgress = false;
     setState(() {});
     if (response.isSuccess) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('User Registered Successfully!')));
+      showSnackBarMessage(context, 'User Registered Successfully!');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.errorMessage),),);
+      showSnackBarMessage(context, response.errorMessage, true);
     }
   }
 
