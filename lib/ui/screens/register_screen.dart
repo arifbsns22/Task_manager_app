@@ -107,12 +107,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextFormField(
                 textInputAction: TextInputAction.next,
                 controller: _passwordTEController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  hintText: "Password",
+                  hintText: "Pin",
                 ),
                 validator: (String? value) {
-                  if ((value?.trim().isEmpty ?? true) || (value!.length < 6)) {
-                    return 'Enter your password more than 6 letters';
+                  if ((value?.trim().isEmpty ?? true) || (value!.length <=4)) {
+                    return 'Enter your pin more than 4 letters';
                   }
                   return null;
                 },

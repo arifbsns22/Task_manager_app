@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management/ui/screens/forgot_password_verify_email_screen.dart';
@@ -43,13 +44,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const InputDecoration(
                   hintText: " Enter Your Email",
                 ),
+                validator: (String? value) {
+                  String email = value?.trim() ?? '';
+                  if (EmailValidator.validate(email) == false) {
+                    return 'Enter a valid email';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordTEController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  hintText: " Enter Your Possword",
+                  hintText: " Enter Your Pin",
                 ),
+                validator: (String? value) {
+                  if ((value?.trim().isEmpty ?? true) || (value!.length <=4)) {
+                    return 'Enter your pin more than 4 letters';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               ElevatedButton(
