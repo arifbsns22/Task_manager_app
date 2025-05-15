@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management/data/models/login_model.dart';
+import 'package:task_management/ui/controllers/auth_controller.dart';
 import 'package:task_management/ui/screens/forgot_password_verify_email_screen.dart';
 import 'package:task_management/ui/screens/main_bottom_nav_screen.dart';
 import 'package:task_management/ui/screens/register_screen.dart';
@@ -141,10 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {});
     if (response.isSuccess) {
       LoginModel loginModel = LoginModel.fromJson(response.data!);
-      //TODO: Token save to local
-      //TODO: local database setup
-      //TODO: logged in/or nor verify
-
+      AuthController.saveUserInformation(
+          loginModel.token, loginModel.userModel);
 
       Navigator.pushAndRemoveUntil(
         context,
