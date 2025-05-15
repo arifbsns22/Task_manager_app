@@ -40,8 +40,10 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
                       style: textTheme.bodyLarge?.copyWith(
                           color: Colors.white, fontWeight: FontWeight.w600)),
                   const SizedBox(),
-                  Text(AuthController.userModel?.mobile ?? 'Unknown',
-                      style: textTheme.bodySmall?.copyWith(color: Colors.white),)
+                  Text(
+                    AuthController.userModel?.mobile ?? 'Unknown',
+                    style: textTheme.bodySmall?.copyWith(color: Colors.white),
+                  )
                 ],
               ),
             ),
@@ -66,7 +68,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Future<void> _onTapLogOutButton(BuildContext context)async {
+  Future<void> _onTapLogOutButton(BuildContext context) async {
     await AuthController.clearUserData();
     Navigator.pushAndRemoveUntil(
         context,
