@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_management/ui/controllers/auth_controller.dart';
+import 'package:task_management/ui/screens/login_screen.dart';
 import 'package:task_management/ui/screens/update_profile_screen.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -44,7 +46,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () => _onTapLogOutButton(context),
                 icon: Icon(
                   Icons.logout,
                   color: Colors.white,
@@ -62,6 +64,16 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
         builder: (context) => const UpdateProfileScreen(),
       ),
     );
+  }
+
+  Future<void> _onTapLogOutButton(BuildContext context)async {
+    await AuthController.clearUserData();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+        (predicate) => false);
   }
 
   @override

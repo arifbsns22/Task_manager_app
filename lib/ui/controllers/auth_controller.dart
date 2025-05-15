@@ -34,7 +34,20 @@ class AuthController {
     token = accessToken;
   }
 
-
-
-
+  //===================== Checked if user already logged in
+  static Future<bool> checkIfUserLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? userAccessToken = sharedPreferences.getString(_tokenKey);
+    if (userAccessToken != null) {
+      await getUserInformation();
+      return true;
+    }
+    return false;
+  }
+  static Future <void> clearUserData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    token = null;
+    userModel = null;
+  }
 }
