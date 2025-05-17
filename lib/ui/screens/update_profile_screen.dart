@@ -132,7 +132,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       const SizedBox(height: 16),
                       Visibility(
                         visible: _updateProfileInProgress == false,
-                        replacement: CircularProgressIndicator(),
+                        replacement: const CenteredCircularProgressBar(),
                         child: ElevatedButton(
                           onPressed: _onTapSubmitButton,
                           //child: Icon(Icons.arrow_circle_right_outlined)
