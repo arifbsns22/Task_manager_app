@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import 'package:task_management/ui/controllers/auth_controller.dart';
 import 'package:task_management/ui/widgets/centered_circular_progress_bar.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
 import 'package:task_management/ui/widgets/tm_app_bar.dart';
-
 import '../../data/service/network_client.dart';
 import '../../data/utils/urls.dart';
 import '../widgets/snack_bar_message.dart';
@@ -203,9 +201,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     }
 
     if (_pickedImage != null) {
-      List<int> imageBytes =await _pickedImage!.readAsBytes();
+      List<int> imageBytes = await _pickedImage!.readAsBytes();
       String encodedImage = base64Encode(imageBytes);
-      requestBody ['photo'] = encodedImage;
+      requestBody['photo'] = encodedImage;
     }
 
     NetworkResponse response = await NetworkClient.postRequest(
