@@ -128,14 +128,15 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {});
     if (response.isSuccess) {
       LoginModel loginModel = LoginModel.fromJson(response.data!);
-      AuthController.saveUserInformation(loginModel.token, loginModel.userModel);
+      AuthController.saveUserInformation(
+          loginModel.token, loginModel.userModel);
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => const MainBottomNavScreen(),
         ),
-            (predicate) => false,
+        (predicate) => false,
       );
     } else {
       showSnackBarMessage(context, response.errorMessage, true);

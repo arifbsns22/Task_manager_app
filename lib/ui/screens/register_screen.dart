@@ -109,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Password',
                     ),
                     validator: (String? value) {
-                      if ((value?.isEmpty ?? true) || (value!.length < 6)) {
+                      if ((value?.isEmpty ?? true) || (value!.length > 6)) {
                         return 'Enter your password more than 6 letters';
                       }
                       return null;
